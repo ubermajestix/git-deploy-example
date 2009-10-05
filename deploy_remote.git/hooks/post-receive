@@ -1,0 +1,7 @@
+#!/bin/sh
+cd ../prod/deploy_repo
+echo "deploying to:"
+pwd
+git=`which git`
+ls
+env -i $git pull --rebase 
