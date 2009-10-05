@@ -1,0 +1,17 @@
+== Deploying with Git
+This is an example of deploying with git. We have a local folder which is what we'd have for our local development. The local repo has two remotes:
+  git remote -v show
+  deploy	../deploy_remote.git
+  origin	../repo.git/
+If you notice they point to git repostitories locally (just for ease of instruction).
+The repository repo.git is referenced as origin. This repo is where development will be checked-in to and checked-out of.When you're ready to deploy your app you will issue a git push command from your local directory:
+  git push deploy master
+Here, deploy references the deploy remote, and master is the branch we're pushing. The deploy_remote.git repo has a post-recieve hook that cd's into our prod directory and runs git pull --rebase, here's the code:
+  #!/bin/sh
+  cd ../prod/deploy_repo
+  echo "deploying to:"
+  pwd
+  git=`which git`
+  ls
+  env -i $git pull --rebase 
+
